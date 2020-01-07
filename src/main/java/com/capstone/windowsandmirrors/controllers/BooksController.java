@@ -1,6 +1,6 @@
 package com.capstone.windowsandmirrors.controllers;
 
-import com.capstone.windowsandmirrors.models.Books;
+import com.capstone.windowsandmirrors.models.Book;
 import com.capstone.windowsandmirrors.services.BooksServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.List;
 
 // tell Spring that this is controller using code below:
 @RestController
@@ -23,13 +22,8 @@ public class BooksController {
     private BooksServices booksServices;
 
     @GetMapping("/books")
-    public ArrayList<Books> getAllBooks(Model books) {
-       //return new ArrayList<>();
-        //repository.saveAll(Arrays.asList(new Customer()));
-        //return null;
-        System.out.println("testing books output");
+    public ArrayList<Book> getAllBooks(Model books) {
         return booksServices.findAll();
-
 
     }
 

@@ -1,7 +1,7 @@
 package com.capstone.windowsandmirrors.controllers;
 
 import com.capstone.windowsandmirrors.models.Author;
-import com.capstone.windowsandmirrors.services.AuthorsServices;
+import com.capstone.windowsandmirrors.services.AuthorsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,13 +14,13 @@ import java.util.ArrayList;
 @CrossOrigin(origins = "*")
 public class AuthorsController {
     @Autowired
-    private AuthorsServices authorsServices;
+    private AuthorsService authorsService;
 
     @GetMapping("/authors")
 
 
     public ArrayList<Author> getAllAuthors(Model authors) {
-        return authorsServices.findAll();
+        return authorsService.findAll();
     }
 
 }

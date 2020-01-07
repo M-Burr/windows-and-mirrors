@@ -1,7 +1,7 @@
 package com.capstone.windowsandmirrors.controllers;
 
 import com.capstone.windowsandmirrors.models.Book;
-import com.capstone.windowsandmirrors.services.BooksServices;
+import com.capstone.windowsandmirrors.services.BooksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,11 +19,11 @@ public class BooksController {
 //    BooksRepository2 repository;
     // this annotations tells Spring where to access this crud action
     @Autowired
-    private BooksServices booksServices;
+    private BooksService booksService;
 
     @GetMapping("/books")
     public ArrayList<Book> getAllBooks(Model books) {
-        return booksServices.findAll();
+        return booksService.findAll();
 
     }
 

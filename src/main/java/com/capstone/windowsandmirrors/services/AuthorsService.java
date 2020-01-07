@@ -8,12 +8,11 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 @Service
-public class AuthorsServices {
+public class AuthorsService {
     @Autowired
     private AuthorsRepository authorsRepository;
 
-    public ArrayList<Author> findAll(){
-        return (ArrayList<Author>) authorsRepository.findAll();
+    public ArrayList<Author> findAll(){ return (ArrayList<Author>) authorsRepository.findAll();
     }
 
 }

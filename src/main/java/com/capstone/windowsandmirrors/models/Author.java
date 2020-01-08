@@ -1,5 +1,7 @@
 package com.capstone.windowsandmirrors.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
@@ -48,6 +50,9 @@ public class Author {
     public void setName(String name) {this.name = name;}
 
     public Double getAvgRating() {return avgRating;}
+
+    @JsonIgnore
+    public Set<Book> getBooks() {return books;}
 
     @Override
     public String toString() {

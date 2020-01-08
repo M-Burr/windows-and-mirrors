@@ -6,18 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 // tell Spring that this is controller using code below:
 @RestController
 @CrossOrigin(origins = "*")
 
 public class BooksController {
-//    @Autowired
-//    BooksRepository2 repository;
-    // this annotations tells Spring where to access this crud action
     @Autowired
     private BooksService booksService;
 
@@ -25,6 +24,12 @@ public class BooksController {
     public ArrayList<Book> getAllBooks(Model books) {
         return booksService.findAll();
 
+    }
+
+    @GetMapping("/books/{id}")
+    public Book retrieveBook(@PathVariable long id){
+        Optional<Book> book=booksService.findById(id);
+        return book.get();
     }
 
 

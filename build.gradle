@@ -36,3 +36,9 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+processResources {
+	from ('frontend/build/') {
+		into 'public'
+	}
+}

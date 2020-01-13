@@ -17,6 +17,13 @@ public class Book {
     )
     private Set<Author> authors;
 
+    @ManyToMany
+    @JoinTable(
+            name="books_tags",
+            joinColumns= @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name="tag_id")
+    )
+    private Set<Tag> tags;
 
 
     private String title;
@@ -122,6 +129,9 @@ public class Book {
     public Set<Author> getAuthors() { return authors; }
 
     public void setAuthors(Set<Author> authors) { this.authors = authors; }
+
+    public Set<Tag> getTags() { return tags; }
+    public void setTags() {this.tags = tags;}
 
     @Override
     public String toString() {

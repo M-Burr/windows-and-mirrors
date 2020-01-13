@@ -20,13 +20,13 @@ public class BooksController {
     @Autowired
     private BooksService booksService;
 
-    @GetMapping("/books")
+    @GetMapping("/api/books")
     public ArrayList<Book> getAllBooks(Model books) {
         return booksService.findAll();
 
     }
 
-    @GetMapping("/books/{id}")
+    @GetMapping("/api/books/{id}")
     public Book retrieveBook(@PathVariable long id){
         Optional<Book> book=booksService.findById(id);
         return book.get();

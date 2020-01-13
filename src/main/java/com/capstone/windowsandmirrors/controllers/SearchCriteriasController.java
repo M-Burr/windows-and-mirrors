@@ -22,12 +22,12 @@ public class SearchCriteriasController {
     @Autowired
     private SearchesService searchesService;
 
-    @GetMapping("/searchcriteria")
+    @GetMapping("/api/searchcriteria")
     public ArrayList<Tag> getAllTags(Model tags) {
         return searchesService.findAll();
     }
 
-    @GetMapping("/complete-search")
+    @GetMapping("/api/complete-search")
     public Set<Book> search(@RequestParam String identifier ){
         String[] array = identifier.split(",");
         Set<String> set = new HashSet<>(Arrays.asList(array));

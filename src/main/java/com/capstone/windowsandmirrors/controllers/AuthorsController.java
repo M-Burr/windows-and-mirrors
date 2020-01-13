@@ -16,7 +16,7 @@ public class AuthorsController {
     @Autowired
     private AuthorsService authorsService;
 
-    @GetMapping("/authors")
+    @GetMapping("/api/authors")
 
 
     public ArrayList<Author> getAllAuthors(Model authors) {

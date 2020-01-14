@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -28,11 +29,28 @@ public class SearchCriteriasController {
     }
 
     @GetMapping("/api/complete-search")
-    public Set<Book> search(@RequestParam String identifier ){
-        String[] array = identifier.split(",");
-        Set<String> set = new HashSet<>(Arrays.asList(array));
+    public Set<Book> search(
+            @RequestParam(required = false) String identifier,
+            @RequestParam(required = false) String ages
+    ){
+        Set<String> identifierSet = new HashSet<>();
+        if (identifier != null){
+            String[] identifierArray = identifier.split(",");
+            identifierSet = new HashSet<>(Arrays.asList(identifierArray));
+        }
 
-        return searchesService.completeSearch(set);
+        Set<Integer> agesSet = new HashSet<>();
+        if (ages != null){
+            String[] agesArray = ages.split(",");
+            agesSet = new HashSet<>(
+                    Arrays.asList(agesArray).
+                            stream().
+                            map(Integer::valueOf).
+                            collect(Collectors.toList())
+            );
+        }
+
+        return searchesService.completeSearch(identifierSet, agesSet);
     }
 
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -23,7 +24,6 @@ public class BooksController {
     @GetMapping("/api/books")
     public ArrayList<Book> getAllBooks(Model books) {
         return booksService.findAll();
-
     }
 
     @GetMapping("/api/books/{id}")

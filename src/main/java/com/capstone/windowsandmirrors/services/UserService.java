@@ -1,10 +1,13 @@
 package com.capstone.windowsandmirrors.services;
 
+import com.capstone.windowsandmirrors.models.User;
+import com.capstone.windowsandmirrors.repositories.UserRepository;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -21,7 +24,10 @@ public class UserService {
             .setAudience(Collections.singletonList(CLIENT_ID))
             .build();
 
-    public String login(String userToken) {
+    @Autowired
+    private UserRepository userRepository;
+
+    public User login(String userToken) {
         GoogleIdToken idToken = null;
         try {
             idToken = verifier.verify(userToken);
@@ -40,6 +46,14 @@ public class UserService {
 
             // Get profile information from payload
             String email = payload.getEmail();
+            User user = userRepository.findUserByEmail(email);
+            if (user == null){
+                user = new User();
+                user.setName((String) payload.get("name"));
+                user.setEmail(email);
+                user.setAccountType("general");
+                userRepository.save(user);
+            }
 //            boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
 //            String name = (String) payload.get("name");
 //            String pictureUrl = (String) payload.get("picture");
@@ -49,7 +63,7 @@ public class UserService {
 
             // Use or store profile information
             // ...
-            return email;
+            return user;
         } else {
             System.out.println("Invalid ID token.");
         }

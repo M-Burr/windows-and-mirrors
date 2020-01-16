@@ -3,11 +3,10 @@ package com.capstone.windowsandmirrors.controllers;
 import com.capstone.windowsandmirrors.models.Book;
 import com.capstone.windowsandmirrors.services.BooksService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -30,6 +29,12 @@ public class BooksController {
     public Book retrieveBook(@PathVariable long id){
         Optional<Book> book=booksService.findById(id);
         return book.get();
+    }
+
+    @PostMapping("/api/books")
+    public String addBook(Book newBook, Model model){
+        model.addAttribute("book", newBook);
+        return "books";
     }
 
 

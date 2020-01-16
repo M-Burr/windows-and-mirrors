@@ -2,6 +2,7 @@ package com.capstone.windowsandmirrors.controllers;
 
 import com.capstone.windowsandmirrors.models.LoginRequest;
 import com.capstone.windowsandmirrors.models.LoginResponse;
+import com.capstone.windowsandmirrors.models.User;
 import com.capstone.windowsandmirrors.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,9 +18,9 @@ public class LoginController {
     @Autowired
     private UserService userService;
     @PostMapping("/api/login")
-    public LoginResponse login(@RequestBody LoginRequest requestData){
+    public User login(@RequestBody LoginRequest requestData){
         System.out.println(requestData.getUserToken());
-        String email = userService.login(requestData.getUserToken());
-        return new LoginResponse(email);
+        User user = userService.login(requestData.getUserToken());
+        return user;
     }
 }

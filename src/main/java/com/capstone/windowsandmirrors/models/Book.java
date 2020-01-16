@@ -133,6 +133,14 @@ public class Book {
     public Set<Tag> getTags() { return tags; }
     public void setTags() {this.tags = tags;}
 
+    public String getBookCover() {
+        return bookCover;
+    }
+
+    public void setBookCover(String bookCover) {
+        this.bookCover = bookCover;
+    }
+
     @Override
     public String toString() {
         return "Book{" +

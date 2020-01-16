@@ -40,7 +40,7 @@ public class SearchCriteriasController {
         }
 
         Set<Integer> agesSet = new HashSet<>();
-        if (ages != null){
+        if (ages != null && ages.length() > 0){
             String[] agesArray = ages.split(",");
             agesSet = new HashSet<>(
                     Arrays.asList(agesArray).

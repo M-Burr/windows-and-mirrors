@@ -66,6 +66,7 @@ public class AddBooksService {
         //take remaining book information and create book object
         Book newBook = new Book();
         newBook.setTitle(addBookRequest.getTitle());
+        newBook.setBookCover(addBookRequest.getBookCover());
         newBook.setAuthors(authors);
         newBook.setTags(tags);
         newBook.setStartAge(addBookRequest.getStartAge());

@@ -9,6 +9,8 @@ import java.util.Set;
 @Entity(name = "authors")
 public class Author {
     @Id
+    @SequenceGenerator(name="authors_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="authors_id_seq")
     private Long id;
 
     @ManyToMany
@@ -50,6 +52,7 @@ public class Author {
     public void setName(String name) {this.name = name;}
 
     public Double getAvgRating() {return avgRating;}
+    public void setAvgRating(Double avgRating) { this.avgRating = avgRating; }
 
     @JsonIgnore
     public Set<Book> getBooks() {return books;}

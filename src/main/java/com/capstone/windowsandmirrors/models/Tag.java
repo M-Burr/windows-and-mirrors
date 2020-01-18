@@ -1,12 +1,13 @@
 package com.capstone.windowsandmirrors.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity(name="tags")
 public class Tag {
     @Id
+    @SequenceGenerator(name="tags_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tags_id_seq")
     private Long id;
 
     private String identifier;

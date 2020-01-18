@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TagsRepository extends CrudRepository<Tag, Long> {
+    Tag findTagByIdentifier(String identifier);
 }

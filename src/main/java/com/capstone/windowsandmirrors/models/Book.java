@@ -7,6 +7,8 @@ import java.util.Set;
 @Entity(name = "books")
 public class Book {
     @Id
+    @SequenceGenerator(name="books_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "books_id_seq")
     private Long id;
 
     @ManyToMany
@@ -131,7 +133,7 @@ public class Book {
     public void setAuthors(Set<Author> authors) { this.authors = authors; }
 
     public Set<Tag> getTags() { return tags; }
-    public void setTags() {this.tags = tags;}
+    public void setTags(Set<Tag> tags) {this.tags = tags;}
 
     public String getBookCover() {
         return bookCover;

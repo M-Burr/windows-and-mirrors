@@ -1,6 +1,8 @@
 package com.capstone.windowsandmirrors.controllers;
 
+import com.capstone.windowsandmirrors.models.AddBookRequest;
 import com.capstone.windowsandmirrors.models.Book;
+import com.capstone.windowsandmirrors.services.AddBooksService;
 import com.capstone.windowsandmirrors.services.BooksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,9 @@ public class BooksController {
     @Autowired
     private BooksService booksService;
 
+    @Autowired
+    private AddBooksService addBooksService;
+
     @GetMapping("/api/books")
     public ArrayList<Book> getAllBooks(Model books) {
         return booksService.findAll();
@@ -31,10 +36,11 @@ public class BooksController {
         return book.get();
     }
 
+
     @PostMapping("/api/books")
-    public String addBook(Book newBook, Model model){
-        model.addAttribute("book", newBook);
-        return "books";
+    public String addBook(@RequestBody AddBookRequest bookRequest){
+         addBooksService.addBook(bookRequest);
+        return "hello";
     }
 
 

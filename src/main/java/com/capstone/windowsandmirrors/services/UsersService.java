@@ -1,7 +1,7 @@
 package com.capstone.windowsandmirrors.services;
 
 import com.capstone.windowsandmirrors.models.User;
-import com.capstone.windowsandmirrors.repositories.UserRepository;
+import com.capstone.windowsandmirrors.repositories.UsersRepository;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.HttpTransport;
@@ -15,7 +15,7 @@ import java.security.GeneralSecurityException;
 import java.util.Collections;
 
 @Service
-public class UserService {
+public class UsersService {
     final static JacksonFactory jsonFactory = new JacksonFactory();
     final static HttpTransport transport = new NetHttpTransport();
     final static String CLIENT_ID = "134231042819-ldje18ruml7mdidv2ca21946nputsmbu.apps.googleusercontent.com";
@@ -25,7 +25,7 @@ public class UserService {
             .build();
 
     @Autowired
-    private UserRepository userRepository;
+    private UsersRepository usersRepository;
 
     public User login(String userToken) {
         GoogleIdToken idToken = null;
@@ -46,13 +46,13 @@ public class UserService {
 
             // Get profile information from payload
             String email = payload.getEmail();
-            User user = userRepository.findUserByEmail(email);
+            User user = usersRepository.findUserByEmail(email);
             if (user == null){
                 user = new User();
                 user.setName((String) payload.get("name"));
                 user.setEmail(email);
                 user.setAccountType("general");
-                userRepository.save(user);
+                usersRepository.save(user);
             }
 //            boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
 //            String name = (String) payload.get("name");

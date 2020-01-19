@@ -16,9 +16,10 @@ public class ReviewsService {
     @Autowired
     private UsersRepository usersRepository;
 
-    public Review addReview(Review newBookReview) {
+    public ReviewWithUser addReview(Review newBookReview) {
         reviewsRepository.save(newBookReview);
-        return newBookReview;
+        User user = usersRepository.findById(newBookReview.getUserId()).get();
+        return new ReviewWithUser(user, newBookReview);
     }
 
     public ReviewSummaryData bookSummary(long bookId) {

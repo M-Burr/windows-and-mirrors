@@ -18,7 +18,7 @@ public class ReviewsController {
     }
 
     @PostMapping("/api/reviews_summary/{bookId}")
-    public Review addReviewToBook (@RequestBody Review newBookReview){
+    public ReviewWithUser addReviewToBook (@RequestBody Review newBookReview){
         return reviewsService.addReview(newBookReview);
     }
 

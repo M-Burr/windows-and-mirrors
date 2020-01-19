@@ -12,6 +12,9 @@ import java.util.Set;
 @Service
 public class AddBooksService {
     @Autowired
+    private AuthorsService authorsService;
+
+    @Autowired
     private BooksRepository booksRepository;
 
     @Autowired
@@ -87,6 +90,10 @@ public class AddBooksService {
         newReview.setUserId(addBookRequest.getUserId());
         newReview.setBookId(newBook.getId());
         reviewsRepository.save(newReview);
+
+        newBook.getAuthors().forEach(author -> {
+            authorsService.updateAuthorRating(author);
+        });
     }
 
 }

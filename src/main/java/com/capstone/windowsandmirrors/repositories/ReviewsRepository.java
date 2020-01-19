@@ -1,6 +1,7 @@
 package com.capstone.windowsandmirrors.repositories;
 
 import com.capstone.windowsandmirrors.models.AverageRatingByAccountType;
+import com.capstone.windowsandmirrors.models.Book;
 import com.capstone.windowsandmirrors.models.Review;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -17,5 +18,9 @@ public interface ReviewsRepository extends CrudRepository<Review, Long> {
     )
     public List<AverageRatingByAccountType> getAverageRatingForBook(Long bookId);
 
-    List<Review> findReviewsByBookId(Long bookId);
+    @Query(
+            value = "SELECT * from reviews WHERE reviews.book_id = ?1",
+            nativeQuery = true
+    )
+    List<Review> findByBookId(Long bookId);
 }

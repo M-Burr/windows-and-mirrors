@@ -1,6 +1,10 @@
 package com.capstone.windowsandmirrors.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.math.BigInteger;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
 
@@ -27,6 +31,9 @@ public class Book {
     )
     private Set<Tag> tags;
 
+    @OneToMany
+    @JoinColumn(name = "book_id")
+    private Set<Review> reviews;
 
     private String title;
 
@@ -143,6 +150,15 @@ public class Book {
         this.bookCover = bookCover;
     }
 
+    @JsonIgnore
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Set<Review> reviews) {
+        this.reviews = reviews;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -158,5 +174,18 @@ public class Book {
                 ", endGrade='" + endGrade + '\'' +
                 ", bookCover='" + bookCover + '\'' +
                 '}';
+    }
+
+    public Double getAverageRating() {
+        Set<Review> bookReviews = this.getReviews();
+        Double total = 0.0;
+
+        Iterator<Review> it = bookReviews.iterator();
+        while (it.hasNext()) {
+            Review bookReview = it.next();
+            total += bookReview.getRating();
+        }
+
+        return (total / bookReviews.size());
     }
 }

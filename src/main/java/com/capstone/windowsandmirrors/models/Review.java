@@ -1,5 +1,10 @@
 package com.capstone.windowsandmirrors.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -30,7 +35,7 @@ public class Review {
     public Review(Long id, Long userId, Long bookId, Double rating, String praise, String concern, String discussionTopics){
         this.id = id;
         this.userId = userId;
-        this.bookId = bookId;
+        //this.bookId = bookId;
         this.rating = rating;
         this.praise = praise;
         this.concern = concern;
@@ -46,7 +51,7 @@ public class Review {
     }
 
     @Override
-    public int hashCode(){ return Objects.hash(id, userId, bookId, rating, praise, concern, discussionTopics); }
+    public int hashCode(){ return Objects.hash(id, userId, rating, praise, concern, discussionTopics); }
 
     public Long getId() {
         return id;
@@ -64,9 +69,7 @@ public class Review {
         this.userId = userId;
     }
 
-    public Long getBookId() {
-        return bookId;
-    }
+    public Long getBookId() { return bookId; }
 
     public void setBookId(Long bookId) {
         this.bookId = bookId;
@@ -109,7 +112,6 @@ public class Review {
         return "Review{" +
                 "id=" + id +
                 ", userId=" + userId +
-                ", bookId=" + bookId +
                 ", rating=" + rating +
                 ", praise='" + praise + '\'' +
                 ", concern='" + concern + '\'' +

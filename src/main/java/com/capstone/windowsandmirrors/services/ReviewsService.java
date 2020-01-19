@@ -1,6 +1,7 @@
 package com.capstone.windowsandmirrors.services;
 
 import com.capstone.windowsandmirrors.models.*;
+import com.capstone.windowsandmirrors.repositories.BooksRepository;
 import com.capstone.windowsandmirrors.repositories.ReviewsRepository;
 import com.capstone.windowsandmirrors.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +12,24 @@ import java.util.*;
 @Service
 public class ReviewsService {
     @Autowired
+    private AuthorsService authorsService;
+
+    @Autowired
     private ReviewsRepository reviewsRepository;
 
     @Autowired
     private UsersRepository usersRepository;
 
+    @Autowired
+    private BooksRepository booksRepository;
+
     public ReviewWithUser addReview(Review newBookReview) {
         reviewsRepository.save(newBookReview);
+
+        Book book = booksRepository.findById(newBookReview.getBookId()).get();
+        book.getAuthors().forEach(author -> {
+            authorsService.updateAuthorRating(author);
+        });
         User user = usersRepository.findById(newBookReview.getUserId()).get();
         return new ReviewWithUser(user, newBookReview);
     }
@@ -35,7 +47,7 @@ public class ReviewsService {
 
         // get and set reviews
         List<ReviewWithUser> reviewWithUsers = new ArrayList<>();
-        List<Review> reviews = reviewsRepository.findReviewsByBookId(bookId);
+        List<Review> reviews = reviewsRepository.findByBookId(bookId);
         reviews.forEach(review -> {
             // convert review to review with user
             Optional<User> userOptional = usersRepository.findById(review.getUserId());

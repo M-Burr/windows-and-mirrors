@@ -16,6 +16,11 @@ public class ReviewsService {
     @Autowired
     private UsersRepository usersRepository;
 
+    public Review addReview(Review newBookReview) {
+        reviewsRepository.save(newBookReview);
+        return newBookReview;
+    }
+
     public ReviewSummaryData bookSummary(long bookId) {
         ReviewSummaryData result = new ReviewSummaryData();
 

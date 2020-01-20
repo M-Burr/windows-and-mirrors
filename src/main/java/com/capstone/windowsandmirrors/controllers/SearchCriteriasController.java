@@ -34,7 +34,7 @@ public class SearchCriteriasController {
             @RequestParam(required = false) String ages
     ){
         Set<String> identifierSet = new HashSet<>();
-        if (identifier != null){
+        if (identifier != null && identifier.length() > 0){
             String[] identifierArray = identifier.split(",");
             identifierSet = new HashSet<>(Arrays.asList(identifierArray));
         }

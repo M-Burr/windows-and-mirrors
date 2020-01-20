@@ -1,6 +1,6 @@
 package com.capstone.windowsandmirrors.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.math.BigInteger;
@@ -21,6 +21,7 @@ public class Book {
             joinColumns = @JoinColumn(name= "book_id"),
             inverseJoinColumns = @JoinColumn(name="author_id") //this is the name of the column in the join table that points at the other side
     )
+    @JsonIgnoreProperties("books")
     private Set<Author> authors;
 
     @ManyToMany

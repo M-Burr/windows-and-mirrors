@@ -1,6 +1,6 @@
 package com.capstone.windowsandmirrors.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -19,6 +19,7 @@ public class Author {
             joinColumns = @JoinColumn(name= "author_id"),
             inverseJoinColumns = @JoinColumn(name="book_id") //this is the name of the column in the join table that points at the other side
     )
+    @JsonIgnoreProperties(value = "authors")
     private Set<Book> books;
 
     private String name;
@@ -54,8 +55,8 @@ public class Author {
     public Double getAvgRating() {return avgRating;}
     public void setAvgRating(Double avgRating) { this.avgRating = avgRating; }
 
-    @JsonIgnore
     public Set<Book> getBooks() {return books;}
+    public void setBooks(Set<Book> books) { this.books = books;}
 
     @Override
     public String toString() {

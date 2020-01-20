@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -33,4 +34,7 @@ public class AuthorsService {
         authorsRepository.save(author);
     }
 
+    public Optional<Author> findById(Long id) {
+        return authorsRepository.findById(id);
+    }
 }

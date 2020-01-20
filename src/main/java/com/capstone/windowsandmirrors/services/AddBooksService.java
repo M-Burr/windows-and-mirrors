@@ -91,6 +91,7 @@ public class AddBooksService {
         newReview.setBookId(newBook.getId());
         reviewsRepository.save(newReview);
 
+        newBook = booksRepository.findById(newBook.getId()).get();
         newBook.getAuthors().forEach(author -> {
             authorsService.updateAuthorRating(author);
         });
